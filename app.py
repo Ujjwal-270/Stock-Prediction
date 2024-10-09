@@ -56,8 +56,47 @@ else:
     # Handle invalid data
     forecast.dropna(subset=['ds', 'yhat'], inplace=True)
 
-    # Line chart for predictions
-    st.line_chart(forecast[['ds', 'yhat']].set_index('ds'))
+    # Plotting with Plotly
+    fig = go.Figure()
+
+    # Actual stock prices
+    fig.add_trace(go.Scatter(x=data['ds'], y=data['y'], mode='lines', name='Actual Prices', line=dict(color='blue')))
+
+    # Forecasted prices
+    fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast['yhat'], mode='lines', name='Forecasted Prices', line=dict(color='orange')))
+
+    # Add fill between the upper and lower bounds
+    fig.add_trace(go.Scatter(
+        x=forecast['ds'],
+        y=forecast['yhat_upper'],
+        mode='lines',
+        name='Upper Bound',
+        line=dict(color='rgba(0,0,0,0)'),
+        showlegend=False
+    ))
+
+    fig.add_trace(go.Scatter(
+        x=forecast['ds'],
+        y=forecast['yhat_lower'],
+        mode='lines',
+        name='Lower Bound',
+        line=dict(color='rgba(0,0,0,0)'),
+        fill='tonexty',  # This will fill the area between upper and lower bounds
+        fillcolor='rgba(0, 200, 200, 0.2)',  # Light green fill
+        showlegend=False
+    ))
+
+    # Update layout
+    fig.update_layout(
+        title=f'{stock_symbol} Stock Price Prediction',
+        xaxis_title='Date',
+        yaxis_title='Price',
+        legend_title='Legend',
+        template='plotly_white'
+    )
+
+    # Render Plotly graph
+    st.plotly_chart(fig)
 
     # Plot forecast components
     st.subheader(f'{stock_symbol} Stock Forecast Components')
