@@ -37,6 +37,9 @@ else:
     data = data[['Date', 'Close']]
     data.columns = ['ds', 'y']  # Prophet expects 'ds' and 'y' column names
 
+    # Remove timezone information from 'ds'
+    data['ds'] = pd.to_datetime(data['ds']).dt.tz_localize(None)
+
     # Train Prophet model
     model = Prophet()
     model.fit(data)
