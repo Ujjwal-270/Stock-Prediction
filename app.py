@@ -5,7 +5,7 @@ import pandas as pd
 import plotly.graph_objs as go
 
 # Title of the app
-st.title('📈 StockCast-Stock Price Prediction WebApp')
+st.title('📈 StockPredict - Stock Price Prediction WebApp')
 
 # Add logo to the sidebar
 st.sidebar.image('Designer.jpeg', width=100)  # Adjust the width as needed
