@@ -101,11 +101,31 @@ else:
     # Render Plotly graph
     st.plotly_chart(fig)
 
-    # Plot forecast components
+    # Plot forecast components with detailed descriptions
     st.subheader(f'{stock_symbol} Stock Forecast Components')
-    fig = model.plot_components(forecast)
-    st.write(fig)
+    
+    # Trend component
+    st.write("### Trend Component")
+    st.caption("**X-axis:** Date | **Y-axis:** Price (USD)")
+    st.write("This plot shows the overall trend of stock prices over time, capturing long-term upward or downward movements.")
+    fig_trend = model.plot_components(forecast).get_figure().axes[0]
+    st.write(fig_trend.figure)
+    
+    # Weekly seasonality
+    st.write("### Weekly Seasonality Component")
+    st.caption("**X-axis:** Day | **Y-axis:** Price Change (USD)")
+    st.write("The weekly seasonality plot highlights the typical pattern in stock prices across different days of the week, which can help you identify the best days for trading.")
+    fig_weekly = model.plot_components(forecast).get_figure().axes[1]
+    st.write(fig_weekly.figure)
+    
+    # Yearly seasonality
+    st.write("### Yearly Seasonality Component")
+    st.caption("**X-axis:** Month | **Y-axis:** Price Change (USD)")
+    st.write("The yearly seasonality plot displays recurring price changes throughout the year, showing how specific months tend to affect stock prices.")
+    fig_yearly = model.plot_components(forecast).get_figure().axes[2]
+    st.write(fig_yearly.figure)
+
 
 # Add footer
 st.markdown('---')
-st.write("Made with ❤️ by Ujjwal")
+st.write("Made with ❤️ by Ujjwal; Happy Trading!")
