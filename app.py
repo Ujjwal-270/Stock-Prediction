@@ -5,7 +5,7 @@ import pandas as pd
 import plotly.graph_objs as go
 
 # Title of the app
-st.title('📈 Stock Price Prediction Web App')
+st.title('📈 StockCast-Stock Price Prediction WebApp')
 
 # Add logo to the sidebar
 st.sidebar.image('Designer.jpeg', width=100)  # Adjust the width as needed
@@ -14,7 +14,7 @@ st.sidebar.image('Designer.jpeg', width=100)  # Adjust the width as needed
 st.sidebar.header('Input Stock Parameters')
 
 # Select box for stock symbol with a few options
-stock_symbol = st.sidebar.selectbox('Select Stock Symbol:', ['AAPL', 'NFLX', 'GOOGL', 'AMZN', 'MSFT'], index=0)
+stock_symbol = st.sidebar.selectbox('Select Stock Symbol:', ['NFLX', 'GOOGL', 'AMZN', 'MSFT'], index=0)
 
 # Slider for date range selection
 start_date = st.sidebar.date_input('Start Date', pd.to_datetime('2020-01-01'))
